@@ -15,16 +15,16 @@ with `webgl` backend.
 **Setup**
 
 ```bash
-git clone https://github.com/Hyuto/yolov8-tfjs.git
+git clone https://github.com/afidzulinn/web-view-infusion.git
 cd yolov8-tfjs
-yarn install #Install dependencies
+npm install
 ```
 
 **Scripts**
 
 ```bash
-yarn start # Start dev server
-yarn build # Build for productions
+npm start # Start dev server
+npm build # Build for productions
 ```
 
 ## Model
@@ -69,4 +69,3 @@ Please update `src/utils/labels.json` with your new classes.
 ## Reference
 
 - https://github.com/ultralytics/ultralytics
-- https://github.com/Hyuto/yolov8-onnxruntime-web
