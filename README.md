@@ -1,7 +1,7 @@
 # Object Detection using YOLOv8 and Tensorflow.js
 
 <p align="center">
-  <img src="./sample.png" />
+  <img src="./sample-infusion.png" />
 </p>
 
 ![love](https://img.shields.io/badge/Made%20with-🖤-white)
