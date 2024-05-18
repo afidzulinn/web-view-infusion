@@ -1,4 +1,4 @@
-# Object Detection using YOLOv8 and Tensorflow.js
+# Infusion Drop Object Detection using YOLOv8 and Tensorflow.js
 
 <p align="center">
   <img src="./sample-infusion.png" />
@@ -24,16 +24,14 @@ npm install
 
 ```bash
 npm start # Start dev server
-npm build # Build for productions
 ```
 
 ## Model
 
-YOLOv8n model converted to tensorflow.js.
+YOLOv8l cutom trained model converted to tensorflow.js.
 
 ```
-used model : yolov8n
-size       : 13 Mb
+used model : yolov8l
 ```
 
 **Use another model**
@@ -45,10 +43,8 @@ Use another YOLOv8 model.
    ```python
    from ultralytics import YOLO
 
-   # Load a model
-   model = YOLO("yolov8n.pt")  # load an official model
+   model = YOLO("yolov8l.pt")
 
-   # Export the model
    model.export(format="tfjs")
    ```
 
@@ -60,9 +56,7 @@ Use another YOLOv8 model.
    const modelName = "yolov8*"; // change to new model name
    ...
    ```
-4. Done! 😊
-
-**Note: Custom Trained YOLOv8 Models**
+4. Done
 
 Please update `src/utils/labels.json` with your new classes.
 
