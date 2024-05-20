@@ -1,11 +1,17 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  build: {
-    chunkSizeWarningLimit: 2000, // handle warning on vendor.js bundle size
-  },
-  base: "/yolov8-tfjs/",
+ base: "/",
+ plugins: [react()],
+ preview: {
+  port: 8901,
+  strictPort: true,
+ },
+ server: {
+  port: 8901,
+  strictPort: true,
+  host: true,
+  // origin: "http://0.0.0.0:8901",
+ },
 });

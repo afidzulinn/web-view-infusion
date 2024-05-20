@@ -1,4 +1,6 @@
-FROM node:20.11.1
+FROM alpine:3.19
+
+ENV NODE_VERSION 20.13.1
 
 WORKDIR /app
 
@@ -8,6 +10,8 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 5173
+RUN npm run build
 
-CMD ["npm", "start"]
+EXPOSE 8080
+
+CMD [ "npm", "start"]
