@@ -1,6 +1,4 @@
-FROM alpine:3.19
-
-ENV NODE_VERSION 20.13.1
+FROM node:20.13.1-alpine3.19
 
 WORKDIR /app
 
@@ -14,4 +12,4 @@ RUN npm run build
 
 EXPOSE 8080
 
-CMD [ "npm", "start"]
+CMD ["npm", "start"]

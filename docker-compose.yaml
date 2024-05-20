@@ -1,12 +1,17 @@
-version: '3'
+version: "3.9"
+
 services:
   app:
-    build: .
+    container_name: infusion-drop
+    image: webapp-infusion-drop
     ports:
-      - 8080:8080
-    environment:
-      - NODE_ENV=production
-    command: npm start
+      - "8901:8901"
+    stdin_open: true
+    tty: true
     volumes:
-      - .:/app
-      - /app/node_modules
+      - webapp-infusion-drop-models-vol:/app
+
+volumes:
+  webapp-infusion-drop-vol:
+    name: webapp-infusion-drop-vol
+  webapp-infusion-drop-models-vol:
