@@ -1,7 +1,7 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Webcam } from "../utils/webcam";
 
-export const ButtonWebcamComponent = ({ imageRef, cameraRef, videoRef }) =>{
+export const ButtonWebcamComponent = ({ imageRef, cameraRef, videoRef, setPlay, timer }) =>{
     const [streaming, setStreaming] = useState(null); // streaming state
     const inputImageRef = useRef(null); // video input reference
     const inputVideoRef = useRef(null); // video input reference
@@ -28,8 +28,13 @@ export const ButtonWebcamComponent = ({ imageRef, cameraRef, videoRef }) =>{
       inputVideoRef.current.value = ""; // reset input video
       videoRef.current.style.display = "none"; // hide video
     };
+
+    useEffect(() =>{
+      if(timer === 0) cameraRef.current.style.display = 'none'; setStreaming(null)
+    },[timer])
     return(
         <button
+        style={{width:'100%'}}
         onClick={() => {
           // if not streaming
           if (streaming === null || streaming === "image") {
@@ -40,11 +45,12 @@ export const ButtonWebcamComponent = ({ imageRef, cameraRef, videoRef }) =>{
             setStreaming("camera"); // set streaming to camera
           }
           // closing video streaming
-          else if (streaming === "camera") {
+          else if (streaming === "camera" && timer === 0) {
             webcam.close(cameraRef.current);
             cameraRef.current.style.display = "none";
             setStreaming(null);
           } else alert(`Can't handle more than 1 stream\nCurrently streaming : ${streaming}`); // if streaming video
+          setPlay(current => !current);
         }}
       >
         {streaming === "camera" ? "Close" : "Open"} Webcam

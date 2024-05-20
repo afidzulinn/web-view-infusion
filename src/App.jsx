@@ -28,6 +28,7 @@ const App = () => {
   const modelName = "fix";
 
   useEffect(() => {
+    // document.body.style.overflow = "hidden"
     tf.ready().then(async () => {
       const yolov8 = await tf.loadGraphModel(
         `${window.location.href}/${modelName}_web_model/model.json`,
@@ -52,95 +53,64 @@ const App = () => {
     });
   }, []);
 
-  const handleCalculate = (status) =>{
+  const handleCalculate = (status) => {
     setIsDrop(status)
   }
 
   useEffect(() => {
-    if(isDrop){
-      setCalculateDrop(current=> current + 1)
+    if (isDrop) {
+      setCalculateDrop(current => current + 1)
     }
   }, [isDrop])
 
   const [timer, setTimer] = useState(60);
   const [play, setPlay] = useState(false);
 
-  // useEffect(() =>{
-  //   let time = null;
-  //   if(play){
-  //     time = setInterval(() => {
-  //       setTimer(current => {
-  //         if(current === 0){
-  //           setPlay(false)
-  //           clearInterval(time)
-  //           return 0;
-  //         }else{
-  //           return current - 1
-  //         }
-  //       });
-  //     }, 1000); 
-  //   }
-  //   return () => {
-  //     clearInterval(time);
-  //   };
-  // },[play])
+  useEffect(() => {
+    let time = null;
+    if (play) {
+      time = setInterval(() => {
+        setTimer(current => {
+          if (current === 0) {
+            setPlay(false)
+            clearInterval(time)
+            return 60;
+          } else {
+            return current - 1
+          }
+        });
+      }, 1000);
+    }
+    return () => {
+      setTimer(60)
+      clearInterval(time);
+    };
+  }, [play])
+
+  if (loading.loading) {
+    return <Loader>Loading model... {(loading.progress * 100).toFixed(2)}%</Loader>
+  }
 
   return (
-    <div className="App">
-
-
-      {loading.loading && <Loader>Loading model... {(loading.progress * 100).toFixed(2)}%</Loader>}
-      {loading.loading ? null : <Timer  value={timer}/> }
-
-      <div className="header">
-        <h1>Infusion Drop Detection App</h1>
-        <p>
-          Infusion Drop live detection application on browser powered by <code>tensorflow.js</code>
-        </p>
-        <p>
-          model : <code className="code">{modelName}</code>
-        </p>
-      </div>
-
+    <div style={{ width: '100vw', height: '100vh', padding: 0, margin: 0, }} className="">
       <div className="content">
-        <img
-          src="#"
-          ref={imageRef}
-          onLoad={() => detect(imageRef.current, model, canvasRef.current)}
-        />
         <video
           autoPlay
           muted
           ref={cameraRef}
           onPlay={() => detectVideo(cameraRef.current, model, canvasRef.current, handleCalculate)}
         />
-        {/* <video
-          autoPlay
-          muted
-          ref={videoRef}
-          onPlay={() => detectVideo(videoRef.current, model, canvasRef.current, handleCalculate)}
-          style={{width:'100vw', height:'100wh', objectFit:"cover" }}
-
-        /> */}
         <canvas width={model.inputShape[1]} height={model.inputShape[2]} ref={canvasRef} />
       </div>
-      <>
-      <video
-          autoPlay
-          muted
-          ref={videoRef}
-          onPlay={() => detectVideo(videoRef.current, model, canvasRef.current, handleCalculate)}
-          style={{width:'100%', height:'100%', objectFit:"cover" }}
-
-        />
-      </>
-      <div><h3>Drop Stats in one minutes : {calculateDrop}</h3></div>
-
-      {/* <ButtonHandler imageRef={imageRef} cameraRef={cameraRef} videoRef={videoRef} /> */}
-      <ButtonWebcamComponent imageRef={imageRef} cameraRef={cameraRef} videoRef={videoRef} />
-      <button onClick={()=>{setPlay(current => !current)}} disabled={play} >Mulai</button>
+      <Timer value={timer} drop={calculateDrop} />
+      <div style={{ width: '100vw', position: 'absolute', top: '20px' }}>
+        <h3></h3>
+      </div>
+      <div style={{ width: '100vw', display: 'flex', flexDirection:"column", position: 'absolute', bottom: 0, zIndex: 3, justifyContent: 'center' }}>
+        <div className="status" style={{marginBottom: '8px', width:"80%", alignSelf:'center'}}><h3 style={{textAlign:'center', margin:"4px, 0"}}>Drop Stats in one minutes : {calculateDrop}</h3></div>
+        <ButtonWebcamComponent imageRef={imageRef} cameraRef={cameraRef} videoRef={videoRef} setPlay={setPlay} timer={timer} />
+      </div>
     </div>
   );
 };
-
 export default App;
