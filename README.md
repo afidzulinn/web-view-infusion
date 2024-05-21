@@ -3,20 +3,16 @@
 <p align="center">
   <img src="./sample-infusion.png" />
 </p>
-
-![love](https://img.shields.io/badge/Made%20with-🖤-white)
-![tensorflow.js](https://img.shields.io/badge/tensorflow.js-white?logo=tensorflow)
-
 ---
 
-Object Detection application right in your browser. Serving YOLOv8 in browser using tensorflow.js
+Realtime Object Detection application on browser. Serving YOLOv8 in browser using tensorflow.js
 with `webgl` backend.
 
 **Setup**
 
 ```bash
 git clone https://github.com/afidzulinn/web-view-infusion.git
-cd yolov8-tfjs
+cd web-view-infusion
 npm install
 ```
 
