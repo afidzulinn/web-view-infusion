@@ -11,7 +11,7 @@ export default defineConfig({
  server: {
   port: 8901,
   strictPort: true,
-  host: "localhost",
-  // origin: "http://0.0.0.0:8901",
+  host: "true",
+  origin: "http://0.0.0.0:8901",
  },
 });
